@@ -1,0 +1,7 @@
+bert-serving-start -model_dir C:\Users\Administrator\projects\bertmodel\uncased_L-12_H-768_A-12 -num_worker=2
+
+curl -X PUT localhost:9200/bertdemo    -H "Content-type:application/json"  -d "{\"settings\": {\"index\": { \"number_of_shards\": \"1\", \"number_of_replicas\": \"0\" }},\"mappings\" : {\"properties\": {\"quote\" : { \"type\": \"text\" },\"vector\" : { \"type\": \"dense_vector\", \"dims\" : 768 }}}}}"
+
+curl -X GET localhost:9200/bertdemo/_search    -H "Content-type:application/json"  -d "{    \"query\": {        \"match_all\": {}    }}"
+
+curl -X PODT localhost:9200/bertdemo/_delete_by_query?conflicts=proceed   -H "Content-type:application/json"  -d "{    \"query\": {        \"match_all\": {}    }}"
